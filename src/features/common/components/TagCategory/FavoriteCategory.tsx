@@ -86,22 +86,20 @@ export const FavoriteCategory = () => {
         <Content className="overflow-hidden data-[state=open]:animate-slide-down data-[state=closed]:animate-slide-up">
           <ul className="flex flex-col pr-16 font-suit text-16-semibold-140">
             {favoriteTags.map((tag) => (
-              <>
-                <li className="flex w-full justify-between gap-6 pl-20" key={tag.tagId}>
-                  <button
-                    className="w-full rounded-8 py-8 pl-16 hover:bg-primary-200"
-                    onClick={() => onClickItem(tag.tagId, tag.name)}
-                  >
-                    <div className="grow text-left">{tag.name}</div>
-                  </button>
-                  <button
-                    className="flex h-40 w-40 items-center justify-center rounded-full hover:bg-gray-100 [&_*]:stroke-gray-600 [&_*]:hover:stroke-black"
-                    onClick={() => handleDeleteItem(tag.tagId)}
-                  >
-                    <Icon height={24} name="cancel" width={24} />
-                  </button>
-                </li>
-              </>
+              <li className="flex w-full justify-between gap-6 pl-20" key={tag.tagId}>
+                <button
+                  className="w-full rounded-8 py-8 pl-16 hover:bg-primary-200"
+                  onClick={() => onClickItem(tag.tagId, tag.name)}
+                >
+                  <div className="grow text-left">{tag.name}</div>
+                </button>
+                <button
+                  className="flex h-40 w-40 items-center justify-center rounded-full hover:bg-gray-100 [&_*]:stroke-gray-600 [&_*]:hover:stroke-black"
+                  onClick={() => handleDeleteItem(tag.tagId)}
+                >
+                  <Icon height={24} name="cancel" width={24} />
+                </button>
+              </li>
             ))}
           </ul>
         </Content>
