@@ -68,7 +68,6 @@ export const CategoryContent = () => {
                   unoptimized
                   alt={category.name}
                   className="h-24 w-24 p-2"
-                  loading="eager"
                   src={category.icon}
                 />
                 <span className="flex-grow text-left text-16-semibold-140">

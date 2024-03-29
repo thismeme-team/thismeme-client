@@ -65,13 +65,7 @@ export const FavoriteCategory = () => {
       <Item value={FAVORITE_ID}>
         <Header className="py-4">
           <Trigger className="flex w-full items-center justify-between gap-8 rounded-full px-4 py-12 text-16-semibold-140 [&>span>#chevronDown]:data-[state=open]:rotate-180">
-            <Photo
-              unoptimized
-              alt="북마크"
-              className="h-24 w-24 p-2"
-              loading="eager"
-              src={FAVORITE_ICON}
-            />
+            <Photo unoptimized alt="북마크" className="h-24 w-24 p-2" src={FAVORITE_ICON} />
             <span className="flex-grow text-left text-16-semibold-140">{FAVORITE_ID}</span>
             <span className="flex h-40 w-40 items-center justify-center rounded-full hover:bg-gray-100">
               <Icon
