@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
  * storybook jsdoc parse 오류 발생. interface 내부에 @deprecated 어노테이션이 있으면 문제 생기는 듯 보임
  * storybook v7으로 업그레이드 시 문제 발생하는지 확인해야 함
  */
-interface Props extends ComponentProps<typeof Image> {
+interface Props extends Omit<ComponentProps<typeof Image>, "style"> {
   fallbackSrc?: string;
 }
 const base64Blur =
@@ -52,7 +52,7 @@ export const Photo = ({
         placeholder="blur"
         sizes=" "
         src={isFailLoading ? fallbackSrc : src}
-        style={{ objectFit: "cover" }}
+        style={{ objectFit: "cover", transform: "translate3d(0, 0, 0)" }}
         onError={setIsFailLoading}
         {...props}
       />
