@@ -34,15 +34,16 @@ export const MemeItem = memo(({ meme, onClick }: Props) => {
           draggable={false}
           height={image.images[0]?.imageHeight}
           loader={cloudinaryLoader}
+          loading={meme.priority ? "eager" : "lazy"}
           sizes="200px"
           src={image.images[0]?.imageUrl}
           unoptimized={isEncodingError(image.images[0]?.imageUrl)}
           width={image.images[0]?.imageWidth}
         />
       </button>
-      <div className="flex justify-between gap-6">
+      <div className="flex justify-between">
         <button
-          className="ga-meme-item-click py-4 text-start"
+          className="ga-meme-item-click flex-1 py-4 text-start"
           onClick={() => {
             onClick?.(memeId);
             movePage(memeId);
@@ -51,7 +52,7 @@ export const MemeItem = memo(({ meme, onClick }: Props) => {
           <span className="text-12-medium-160 line-clamp-2">{name}</span>
         </button>
         <button
-          className="ga-meme-item-add-click flex h-32 w-32 justify-center"
+          className="ga-meme-item-add-click flex h-32 w-32 items-center justify-center"
           onClick={() => {
             overlay.open(({ isOpen, close }) => (
               <MemeActionSheet isOpen={isOpen} meme={meme} onClose={close} />
