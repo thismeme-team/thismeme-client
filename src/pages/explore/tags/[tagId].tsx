@@ -1,5 +1,4 @@
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
-import { useRouter } from "next/router";
 
 import { ExplorePageNavigation } from "@/common/components/Navigation";
 import { NextSeo } from "@/common/components/NextSeo";
@@ -18,15 +17,6 @@ const ExploreByTagPage = ({
   tagName,
   tagId,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  const { isFallback, asPath } = useRouter();
-  const queryString = asPath.split("?")[1];
-  const params = new URLSearchParams(queryString);
-
-  if (isFallback) {
-    const tagName = params.get("q");
-    return <ExplorePageNavigation title={`${tagName ? `#${tagName}` : ""}`} />;
-  }
-
   return (
     <>
       <NextSeo
