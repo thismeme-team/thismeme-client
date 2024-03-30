@@ -1,8 +1,6 @@
-import { QueryClient } from "@tanstack/react-query";
-import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { useRouter } from "next/router";
 
-import { useGetTagInfo } from "@/api/tag";
 import { ExplorePageNavigation } from "@/common/components/Navigation";
 import { NextSeo } from "@/common/components/NextSeo";
 import { PullToRefresh } from "@/common/components/PullToRefresh";
@@ -16,7 +14,10 @@ interface Props {
   tagId: number;
 }
 
-const ExploreByTagPage: NextPage<Props> = ({ tagName, tagId }) => {
+const ExploreByTagPage = ({
+  tagName,
+  tagId,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { isFallback, asPath } = useRouter();
   const queryString = asPath.split("?")[1];
   const params = new URLSearchParams(queryString);
@@ -55,37 +56,23 @@ const ExploreByTagPage: NextPage<Props> = ({ tagName, tagId }) => {
   );
 };
 
-export const getStaticPaths: GetStaticPaths = () => {
-  return {
-    paths: [],
-    fallback: true,
-  };
-};
+export const getServerSideProps: GetServerSideProps = (async ({ res, params, query }) => {
+  res.setHeader("Cache-Control", "public, s-maxage=200, stale-while-revalidate=59");
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const tagName = query.q;
   const tagId = params?.tagId;
-  const queryClient = new QueryClient();
 
-  if (typeof tagId !== "string") {
+  if (typeof tagId !== "string" || typeof tagName !== "string") {
     return {
       notFound: true,
     };
   }
 
-  try {
-    const { name: tagName } = await useGetTagInfo.fetchQuery(Number(tagId), queryClient);
-
-    return {
-      props: {
-        tagName: tagName,
-        tagId: Number(tagId),
-      },
-      revalidate: 60 * 20, // 20분
-    };
-  } catch (e) {
-    return {
-      notFound: true,
-    };
-  }
-};
+  return {
+    props: {
+      tagName,
+      tagId: Number(tagId),
+    },
+  };
+}) satisfies GetServerSideProps<Props>;
 export default ExploreByTagPage;

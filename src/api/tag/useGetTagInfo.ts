@@ -7,7 +7,6 @@ export const useGetTagInfo = (tagId: number) => {
     queryKey: useGetTagInfo.queryKey(tagId),
     queryFn: () => useGetTagInfo.queryFn(tagId),
     staleTime: Infinity,
-    refetchOnMount: "always",
   });
 };
 
