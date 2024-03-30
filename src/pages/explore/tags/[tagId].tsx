@@ -47,7 +47,7 @@ const ExploreByTagPage = ({
 };
 
 export const getServerSideProps: GetServerSideProps = (async ({ res, params, query }) => {
-  res.setHeader("Cache-Control", "public, s-maxage=200, stale-while-revalidate=59");
+  res.setHeader("Cache-Control", "public, s-maxage=604800, stale-while-revalidate=86400");
 
   const tagName = query.q;
   const tagId = params?.tagId;
